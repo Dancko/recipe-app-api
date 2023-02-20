@@ -1,0 +1,9 @@
+[33md334223[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m API schema added
+[33m862d56f[m Added wait_for_db and docker-compose modified
+[33m0572fca[m postgres and psycopg config added
+[33mf9f3a97[m Fixed Linting
+[33m165fbc8[m Break Linting
+[33mbbfddea[m Updated Github Actions
+[33m49d2609[m Updated Github Actions
+[33m95f88ea[m Added github actions.
+[33m93af94f[m Initial commit
