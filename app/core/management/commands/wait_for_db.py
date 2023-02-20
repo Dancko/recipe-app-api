@@ -7,6 +7,7 @@ from psycopg2 import OperationalError as Psycopg2Error
 
 from django.db.utils import OperationalError
 from django.core.management.base import BaseCommand
+from django.db import connection
 
 
 class Command(BaseCommand):
@@ -22,6 +23,7 @@ class Command(BaseCommand):
         while db_up is False:
             try:
                 self.check(databases=['default'])
+                connection.ensure_connection()
                 db_up = True
             except (Psycopg2Error, OperationalError):
                 self.stdout.write('Database unavailable. \
