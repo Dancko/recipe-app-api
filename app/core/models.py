@@ -2,7 +2,7 @@
 Project models.
 """
 
-from django.db import models 
+from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
     PermissionsMixin,
@@ -17,11 +17,12 @@ class UserManager(BaseUserManager):
         """Create new user."""
         if not email:
             raise ValueError('A user must have an email address.')
-        user = self.model(email=self.normalize_email(email), **additional_fields)
+        user = self.model(email=self.normalize_email(email),
+                          **additional_fields)
         user.set_password(password)
         user.save(using=self._db)
 
-        return user 
+        return user
 
     def create_superuser(self, email, password):
         """Create and return superuser."""
