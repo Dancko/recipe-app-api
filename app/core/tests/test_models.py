@@ -5,7 +5,7 @@ from decimal import Decimal
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from app.core import models
+from core import models
 
 
 class ModelTests(TestCase):
