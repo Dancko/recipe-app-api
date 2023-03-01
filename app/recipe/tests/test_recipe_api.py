@@ -18,6 +18,7 @@ from recipe.serializers import RecipeSerializer, RecipeDetailSerializer
 
 RECIPES_URL = reverse('recipe:recipe-list')
 
+
 def get_detail_url(recipe_id):
     """Create a url for recipe details."""
     return reverse('recipe:recipe-detail', args=[recipe_id])
@@ -90,7 +91,6 @@ class PrivateRecipeAPITests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
-
 
     def test_get_recipe_detail(self):
         """Test getting detail recipe."""
