@@ -39,6 +39,7 @@ def create_recipe(user, **params):
     recipe = Recipe.objects.create(user=user, **defaults)
     return recipe
 
+
 def create_user(**params):
     """Create and return a new user."""
     return get_user_model().objects.create_user(**params)
@@ -79,7 +80,9 @@ class PrivateRecipeAPITests(TestCase):
 
     def test_recipe_list_limited_to_user(self):
         """Test recipe list is limited to the authenticated user."""
-        other_user = create_user(email='othertest@example.com', password='pass123')
+        other_user = create_user(
+            email='othertest@example.com',
+            password='pass123')
         create_recipe(user=other_user)
         create_recipe(user=self.user)
 
@@ -164,7 +167,9 @@ class PrivateRecipeAPITests(TestCase):
 
     def test_update_user_returns_error(self):
         """Test recipe's user update throws an error."""
-        new_user = create_user(email='test33@example.com', password='testpass321')
+        new_user = create_user(
+            email='test33@example.com',
+            password='testpass321')
         recipe = create_recipe(user=self.user)
         payload = {'user': new_user}
 
