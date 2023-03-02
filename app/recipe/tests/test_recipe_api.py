@@ -47,7 +47,7 @@ class PublicRecipeAPITests(TestCase):
         self.client = APIClient()
 
     def test_auth_required(self):
-        """Test 401 erroor thrown when try reaching out recipe list."""
+        """Test 401 error thrown when try reaching out recipe list."""
         res = self.client.get(RECIPES_URL)
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -102,3 +102,19 @@ class PrivateRecipeAPITests(TestCase):
         serializer = RecipeDetailSerializer(recipe)
 
         self.assertEqual(res.data, serializer.data)
+
+    def test_create_recipe(self):
+        """Test creating a recipe."""
+        payload = {
+            'title': 'Sample Title',
+            'time_minutes': 30,
+            'price': Decimal('5.99'),
+        }
+
+        res = self.client.post(RECIPES_URL, payload)
+        recipe = Recipe.objects.get(id=res.data['id'])
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        for k, v in payload.items():
+            self.assertEqual(getattr(recipe, k), v)
+        self.assertEqual(recipe.user, self.user)
