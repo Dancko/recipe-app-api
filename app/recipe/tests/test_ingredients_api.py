@@ -75,7 +75,9 @@ class PrivateIngredientTests(TestCase):
 
     def test_ingredient_update(self):
         """Test updating ingredient successful."""
-        ingredient = Ingredient.objects.create(user=self.user, name='Coleandro')
+        ingredient = Ingredient.objects.create(
+                                        user=self.user,
+                                        name='Coleandro')
         payload = {'name': 'Coreander'}
 
         url = ingredient_detail_url(ingredient.id)
@@ -84,3 +86,23 @@ class PrivateIngredientTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         ingredient.refresh_from_db()
         self.assertEqual(ingredient.name, payload['name'])
+
+    def test_ingredient_delete(self):
+        """Test deleting ingredient successful."""
+        ingredient = Ingredient.objects.create(user=self.user, name='Salt')
+        url = ingredient_detail_url(ingredient.id)
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(Ingredient.objects.filter(id=ingredient.id).exists())
+
+    def test_ingredient_delete_by_owner(self):
+        """Test deleting the ingredient by the owner."""
+        user2 = create_user(email='user2@example.com')
+        ingredient = Ingredient.objects.create(user=user2)
+        url = ingredient_detail_url(ingredient.id)
+
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertTrue(Ingredient.objects.filter(id=ingredient.id).exists())
