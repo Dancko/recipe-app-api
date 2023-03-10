@@ -1,11 +1,11 @@
 """
 Views for recipe APIs.
 """
-from drf_spectacular.utils import (
-    extend_schema_view,
-    extend_schema,
-    OpenApiParameter,
-    OpenApiTypes,
+from drf_spectacular.utils import ( # noqa
+    extend_schema_view, # noqa
+    extend_schema, # noqa
+    OpenApiParameter, # noqa
+    OpenApiTypes, # noqa
 )
 from rest_framework import (
     viewsets,
